@@ -1,24 +1,10 @@
-<p align="center">
-  <a href="https://codely.com">
-    <img src="https://user-images.githubusercontent.com/10558907/170513882-a09eee57-7765-4ca4-b2dd-3c2e061fdad0.png" width="300px" height="92px" alt="Codely logo"/>
-  </a>
-</p>
-
 <h1 align="center">
-  <⚡⚛️> Vite React Best Practices Template (by Codely)
+  <⚡⚛️> React Best Practices
 </h1>
 
 <p align="center">
-    <a href="https://github.com/CodelyTV/vite-react_best_practices-template/actions/workflows/tests.yml"><img src="https://github.com/CodelyTV/vite-react_best_practices-template/actions/workflows/tests.yml/badge.svg" alt="Build status"/></a>
-    <a href="https://github.com/CodelyTV"><img src="https://img.shields.io/badge/CodelyTV-OS-green.svg?style=flat-square" alt="Codely Open Source"/></a>
-    <a href="https://pro.codely.com"><img src="https://img.shields.io/badge/CodelyTV-PRO-black.svg?style=flat-square" alt="Codely Pro Courses"/></a>
-</p>
-
-<p align="center">
   Template for creating React apps with TypeScript following best practices: Unit and end-to-end tests, Continuous Integration, and linting.
-  <br />
-  <br />
-  <a href="https://github.com/CodelyTV/vite-react_best_practices-template/stargazers">Stars are welcome 😊</a>
+
 </p>
 
 ## ⚡ Using this Vite template
@@ -92,7 +78,7 @@ touch ~/.gitignore_global
 git config --global core.excludesfile ~/.gitignore_global
 ```
 
-## 👌 Codely Code Quality Standards
+## 👌 Code Quality Standards
 
 Publishing this package we are committing ourselves to the following code quality standards:
 
@@ -105,4 +91,4 @@ Publishing this package we are committing ourselves to the following code qualit
 
 ## 🔀 Related information
 
-This application was generated using the [<⚡⚛️> Vite React Best Practices Template](https://github.com/CodelyTV/vite-react_best_practices-template). Feel free to check it out and star the repo! 🌟😊🙌
+This application was generated using the [<⚡⚛️> Vite React Best Practices](https://github.com/CodelyTV/vite-react_best_practices-template). Feel free to check it out and star the repo! 🌟😊🙌
