@@ -3,19 +3,17 @@ import { useEffect, useState } from "react";
 import { config } from "../../devdash_config";
 import { GitHubApiGitHubRepositoryRepository } from "../../infrastructure/GitHubApiGitHubRepositoryRepository";
 import { GitHubApiResponses } from "../../infrastructure/GitHubApiResponse";
-import { ReactComponent as Brand } from "./brand.svg";
-import { ReactComponent as Check } from "./check.svg";
+import Brand from "./brand.svg";
+import Check from "./check.svg";
 import styles from "./Dashboard.module.scss";
-import { ReactComponent as Error } from "./error.svg";
-import { ReactComponent as PullRequests } from "./git-pull-request.svg";
-import { ReactComponent as IssueOpened } from "./issue-opened.svg";
-import { ReactComponent as Lock } from "./lock.svg";
-import { ReactComponent as Forks } from "./repo-forked.svg";
-import { ReactComponent as Start } from "./star.svg";
-import { ReactComponent as Unlock } from "./unlock.svg";
-import { ReactComponent as Watchers } from "./watchers.svg";
-
-/* https://react-svgr.com/docs/jest/ */
+import Error from "./error.svg";
+import PullRequests from "./git-pull-request.svg";
+import IssueOpened from "./issue-opened.svg";
+import Lock from "./lock.svg";
+import Forks from "./repo-forked.svg";
+import Start from "./star.svg";
+import Unlock from "./unlock.svg";
+import Watchers from "./watchers.svg";
 
 const isoToReadableDate = (lastUpdate: string): string => {
 	const lastUpdateDate = new Date(lastUpdate);
