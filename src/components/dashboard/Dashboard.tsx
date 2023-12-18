@@ -54,61 +54,69 @@ const Dashboard = () => {
 					<h1 className={styles.app__brand}>{title}</h1>
 				</section>
 			</header>
-			<section className={styles.container}>
-				{repositoryData.map((repository) => (
-					<article className={styles.widget} key={repository.repositoryData.id}>
-						<header className={styles.widget__header}>
-							<a
-								className={styles.widget__title}
-								href={repository.repositoryData.html_url}
-								target="_blank"
-								title={`${repository.repositoryData.owner.login}/${repository.repositoryData.name}`}
-								rel="noreferrer"
-							>
-								{repository.repositoryData.owner.login}/{repository.repositoryData.name}
-							</a>
-							{repository.repositoryData.private ? <Lock /> : <Unlock />}
-						</header>
-						<div className={styles.widget__body}>
-							<div className={styles.widget__status}>
-								<p>Last update {isoToReadableDate(repository.repositoryData.updated_at)}</p>
-								{repository.ciStatus.workflow_runs.length > 0 && (
-									<div>
-										{repository.ciStatus.workflow_runs[0].status === "completed" ? (
-											<Check />
-										) : (
-											<Error />
-										)}
-									</div>
-								)}
+			{repositoryData.length === 0 ? (
+				<div className={styles.empty}>
+					<span>No hay widgets configurados.</span>
+				</div>
+			) : (
+				<section className={styles.container}>
+					{repositoryData.map((repository) => (
+						<article className={styles.widget} key={repository.repositoryData.id}>
+							<header className={styles.widget__header}>
+								<a
+									className={styles.widget__title}
+									href={repository.repositoryData.html_url}
+									target="_blank"
+									title={`${repository.repositoryData.owner.login}/${repository.repositoryData.name}`}
+									rel="noreferrer"
+								>
+									{repository.repositoryData.owner.login}/{repository.repositoryData.name}
+								</a>
+								{repository.repositoryData.private ? <Lock /> : <Unlock />}
+							</header>
+							<div className={styles.widget__body}>
+								<div className={styles.widget__status}>
+									<p>Last update {isoToReadableDate(repository.repositoryData.updated_at)}</p>
+									{repository.ciStatus.workflow_runs.length > 0 ? (
+										<div>
+											{repository.ciStatus.workflow_runs[0].status === "completed" ? (
+												<Check />
+											) : (
+												<Error />
+											)}
+										</div>
+									) : null}
+								</div>
+								<p className={styles.widget__description}>
+									{repository.repositoryData.description}
+								</p>
 							</div>
-							<p className={styles.widget__description}>{repository.repositoryData.description}</p>
-						</div>
-						<footer className={styles.widget__footer}>
-							<div className={styles.widget__stat}>
-								<Start />
-								<span>{repository.repositoryData.stargazers_count}</span>
-							</div>
-							<div className={styles.widget__stat}>
-								<Watchers />
-								<span>{repository.repositoryData.watchers_count}</span>
-							</div>
-							<div className={styles.widget__stat}>
-								<Forks />
-								<span>{repository.repositoryData.forks_count}</span>
-							</div>
-							<div className={styles.widget__stat}>
-								<IssueOpened />
-								<span>{repository.repositoryData.open_issues_count}</span>
-							</div>
-							<div className={styles.widget__stat}>
-								<PullRequests />
-								<span>{repository.pullRequests.length}</span>
-							</div>
-						</footer>
-					</article>
-				))}
-			</section>
+							<footer className={styles.widget__footer}>
+								<div className={styles.widget__stat}>
+									<Start />
+									<span>{repository.repositoryData.stargazers_count}</span>
+								</div>
+								<div className={styles.widget__stat}>
+									<Watchers />
+									<span>{repository.repositoryData.watchers_count}</span>
+								</div>
+								<div className={styles.widget__stat}>
+									<Forks />
+									<span>{repository.repositoryData.forks_count}</span>
+								</div>
+								<div className={styles.widget__stat}>
+									<IssueOpened />
+									<span>{repository.repositoryData.open_issues_count}</span>
+								</div>
+								<div className={styles.widget__stat}>
+									<PullRequests />
+									<span>{repository.pullRequests.length}</span>
+								</div>
+							</footer>
+						</article>
+					))}
+				</section>
+			)}
 		</>
 	);
 };
