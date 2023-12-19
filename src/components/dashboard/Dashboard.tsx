@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import { config } from "../../devdash_config";
 import { GitHubRepository } from "../../domain/GitHubRepository";
-import { GitHubApiGitHubRepositoryRepository } from "../../infrastructure/GitHubApiGitHubRepositoryRepository";
+import { GitHubRepositoryRepository } from "../../domain/GitHubRepositoryRepository";
 import Brand from "./brand.svg";
 import Check from "./check.svg";
 import styles from "./Dashboard.module.scss";
@@ -31,8 +31,7 @@ const isoToReadableDate = (lastUpdateDate: Date): string => {
 	return `${diffDays} days ago`;
 };
 
-const Dashboard = () => {
-	const repository = new GitHubApiGitHubRepositoryRepository(config.github_access_token);
+const Dashboard = ({ repository }: { repository: GitHubRepositoryRepository }) => {
 	const title = "DevDash";
 	const [repositoryData, setRepositoryData] = useState<GitHubRepository[]>([]);
 
@@ -43,7 +42,7 @@ const Dashboard = () => {
 				setRepositoryData(responses);
 			})
 			.catch((error: Error) => console.error(error.message));
-	}, []);
+	}, [repository]);
 
 	return (
 		<>

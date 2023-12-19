@@ -1,38 +1,19 @@
 import { render, screen } from "@testing-library/react";
+import { mock } from "jest-mock-extended";
 
 import { Dashboard } from "../src/components";
-import { GitHubRepository } from "../src/domain/GitHubRepository";
-import { GitHubApiGitHubRepositoryRepository } from "../src/infrastructure/GitHubApiGitHubRepositoryRepository";
+import { GitHubRepositoryRepository } from "../src/domain/GitHubRepositoryRepository";
+import { GitHubRepositoryMother } from "./GitHubRepositoryMother";
 
-jest.mock("../src/infrastructure/GitHubApiGitHubRepositoryRepository");
-const mockRepository =
-	GitHubApiGitHubRepositoryRepository as jest.Mock<GitHubApiGitHubRepositoryRepository>;
+const mockRepository = mock<GitHubRepositoryRepository>();
 
 describe("DashBoard section", () => {
 	it("show all widgtes", async () => {
-		const gitHubRepository: GitHubRepository = {
-			id: {
-				organization: "CodelyTv",
-				name: "dotly",
-			},
-			description: "🌚 Modular and easy to customize dotfiles framework",
-			url: "https://github.com/CodelyTV/dotly",
-			private: true,
-			forks: 132,
-			hasWorkflows: true,
-			isLastWorkflowSuccess: false,
-			stars: 4000,
-			issues: 12,
-			pullRequests: 1,
-			updatedAt: new Date(),
-			watchers: 134,
-		};
-		mockRepository.mockImplementationOnce(() => {
-			return {
-				search: () => Promise.resolve([gitHubRepository]),
-			} as unknown as GitHubApiGitHubRepositoryRepository;
-		});
-		render(<Dashboard />);
+		const gitHubRepository = GitHubRepositoryMother.create();
+
+		mockRepository.search.mockResolvedValue([gitHubRepository]);
+
+		render(<Dashboard repository={mockRepository} />);
 
 		const title = await screen.findByRole("heading", {
 			name: new RegExp("DevDash", "i"),
@@ -48,13 +29,9 @@ describe("DashBoard section", () => {
 	});
 
 	it("show not results message when there are no widgets", async () => {
-		mockRepository.mockImplementationOnce(() => {
-			return {
-				search: () => Promise.resolve([]),
-			} as unknown as GitHubApiGitHubRepositoryRepository;
-		});
+		mockRepository.search.mockResolvedValue([]);
 
-		render(<Dashboard />);
+		render(<Dashboard repository={mockRepository} />);
 
 		const noResults = await screen.findByText(new RegExp("No hay widgets configurados", "i"));
 
@@ -62,31 +39,11 @@ describe("DashBoard section", () => {
 	});
 
 	it("show last modified date in human readable format", async () => {
-		const gitHubRepository: GitHubRepository = {
-			id: {
-				organization: "CodelyTv",
-				name: "dotly",
-			},
-			description: "🌚 Modular and easy to customize dotfiles framework",
-			url: "https://github.com/CodelyTV/dotly",
-			private: true,
-			forks: 132,
-			hasWorkflows: true,
-			isLastWorkflowSuccess: false,
-			stars: 4000,
-			issues: 12,
-			pullRequests: 1,
-			updatedAt: new Date(),
-			watchers: 134,
-		};
+		const gitHubRepository = GitHubRepositoryMother.create({ updatedAt: new Date() });
 
-		mockRepository.mockImplementationOnce(() => {
-			return {
-				search: () => Promise.resolve([gitHubRepository]),
-			} as unknown as GitHubApiGitHubRepositoryRepository;
-		});
+		mockRepository.search.mockResolvedValue([gitHubRepository]);
 
-		render(<Dashboard />);
+		render(<Dashboard repository={mockRepository} />);
 
 		const modificationDate = await screen.findByText(new RegExp("today", "i"));
 
