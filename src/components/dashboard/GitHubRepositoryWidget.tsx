@@ -1,14 +1,14 @@
 import { GitHubRepository } from "../../domain/GitHubRepository";
-import Check from "./check.svg";
-import Error from "./error.svg";
-import PullRequests from "./git-pull-request.svg";
+import Check from "./assets/check.svg";
+import Error from "./assets/error.svg";
+import PullRequests from "./assets/git-pull-request.svg";
+import IssueOpened from "./assets/issue-opened.svg";
+import Lock from "./assets/lock.svg";
+import Forks from "./assets/repo-forked.svg";
+import Start from "./assets/star.svg";
+import Unlock from "./assets/unlock.svg";
+import Watchers from "./assets/watchers.svg";
 import styles from "./GitHubRepositoryWidget.module.scss";
-import IssueOpened from "./issue-opened.svg";
-import Lock from "./lock.svg";
-import Forks from "./repo-forked.svg";
-import Start from "./star.svg";
-import Unlock from "./unlock.svg";
-import Watchers from "./watchers.svg";
 
 const isoToReadableDate = (lastUpdateDate: Date): string => {
 	const currentDate = new Date();
@@ -32,7 +32,7 @@ export function GitHubRepositoryWidget({ repository }: { repository: GitHubRepos
 			<header className={styles.widget__header}>
 				<h2 className={styles.widget__title}>
 					<a
-						href={repository.url}
+						href={`/repository/${repository.id.organization}/${repository.id.name}`}
 						target="_blank"
 						title={`${repository.id.organization}/${repository.id.name}`}
 						rel="noreferrer"
