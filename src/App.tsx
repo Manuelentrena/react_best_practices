@@ -1,9 +1,5 @@
-import { Dashboard } from "./components";
-import { config } from "./devdash_config";
-import { GitHubApiGitHubRepositoryRepository } from "./infrastructure/GitHubApiGitHubRepositoryRepository";
-
-const repository = new GitHubApiGitHubRepositoryRepository(config.github_access_token);
+import { Router } from "./router/index";
 
 export function App() {
-	return <Dashboard repository={repository} />;
+	return <Router />;
 }

@@ -3,7 +3,7 @@ import { useMemo } from "react";
 import { config } from "../../devdash_config";
 import { GitHubRepositoryRepository } from "../../domain/GitHubRepositoryRepository";
 import { useGitHubRepositories } from "../../hooks/useGitHubRepositories";
-import Brand from "./brand.svg";
+import Brand from "./assets/brand.svg";
 import styles from "./Dashboard.module.scss";
 import { GitHubRepositoryWidget } from "./GitHubRepositoryWidget";
 
