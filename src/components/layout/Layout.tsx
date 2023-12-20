@@ -1,5 +1,6 @@
 import { Outlet } from "react-router-dom";
 
+import { ErrorBoundary } from "../ErrorBoundary";
 import Brand from "./brand.svg";
 import styles from "./Layout.module.scss";
 
@@ -14,7 +15,9 @@ export function Layout() {
 					<h1 className={styles.app__brand}>{title}</h1>
 				</section>
 			</header>
-			<Outlet />
+			<ErrorBoundary>
+				<Outlet />
+			</ErrorBoundary>
 		</>
 	);
 }
