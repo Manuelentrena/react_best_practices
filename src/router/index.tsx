@@ -2,7 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import { Layout } from "../components";
 import { DashboardFactory } from "../pages/dashBoard/DashboardFactory";
-import { GitHubRepositoryDetail } from "../pages/gitHubRepositoryDetail/GitHubRepositoryDetail";
+import { GitHubRepositoryDetailFactory } from "../pages/gitHubRepositoryDetail/GithubRepositoryDetailFactory";
 
 const router = createBrowserRouter([
 	{
@@ -15,7 +15,7 @@ const router = createBrowserRouter([
 			},
 			{
 				path: "/repository/:organization/:name",
-				element: <GitHubRepositoryDetail />,
+				element: GitHubRepositoryDetailFactory.create(),
 			},
 		],
 	},
