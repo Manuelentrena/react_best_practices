@@ -25,6 +25,5 @@ export interface GitHubRepository {
 	watchers: number;
 	forks: number;
 	issues: number;
-	pullRequests: number;
 	workflowRunsStatus: WorkFlowRunStatus[];
 }
