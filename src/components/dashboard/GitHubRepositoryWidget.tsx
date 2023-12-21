@@ -1,7 +1,6 @@
 import { GitHubRepository } from "../../domain/GitHubRepository";
 import Check from "./assets/check.svg";
 import Error from "./assets/error.svg";
-import PullRequests from "./assets/git-pull-request.svg";
 import IssueOpened from "./assets/issue-opened.svg";
 import Lock from "./assets/lock.svg";
 import Forks from "./assets/repo-forked.svg";
@@ -33,7 +32,6 @@ export function GitHubRepositoryWidget({ repository }: { repository: GitHubRepos
 				<h2 className={styles.widget__title}>
 					<a
 						href={`/repository/${repository.id.organization}/${repository.id.name}`}
-						target="_blank"
 						title={`${repository.id.organization}/${repository.id.name}`}
 						rel="noreferrer"
 					>
@@ -68,10 +66,10 @@ export function GitHubRepositoryWidget({ repository }: { repository: GitHubRepos
 					<IssueOpened />
 					<span>{repository.issues}</span>
 				</div>
-				<div className={styles.widget__stat}>
+				{/* 				<div className={styles.widget__stat}>
 					<PullRequests />
 					<span>{repository.pullRequests}</span>
-				</div>
+				</div> */}
 			</footer>
 		</article>
 	);

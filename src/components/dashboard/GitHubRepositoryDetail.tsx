@@ -1,17 +1,27 @@
 import { useMemo } from "react";
 import { useParams } from "react-router-dom";
 
+import { GitHubRepositoryPullRequestRepository } from "../../domain/GitHubRepositoryPullRequestRepository";
 import { GitHubRepositoryRepository } from "../../domain/GitHubRepositoryRepository";
 import { useGitHubRepository } from "../../hooks/useGithubRepository";
+import { useInViewport } from "../../hooks/useInViewport";
+import { PullRequests } from "../pullRequest/PullRequests";
 import Lock from "./assets/lock.svg";
 import Unlock from "./assets/unlock.svg";
 import styles from "./GitHubRepositoryDetail.module.scss";
 
-export function GitHubRepositoryDetail({ repository }: { repository: GitHubRepositoryRepository }) {
+export function GitHubRepositoryDetail({
+	gitHubRepositoryRepository,
+	gitHubRepositoryPullRequestRepository,
+}: {
+	gitHubRepositoryRepository: GitHubRepositoryRepository;
+	gitHubRepositoryPullRequestRepository: GitHubRepositoryPullRequestRepository;
+}) {
+	const { isInViewport, ref } = useInViewport();
 	const { organization, name } = useParams() as { organization: string; name: string };
 
 	const repositoryId = useMemo(() => ({ name, organization }), [name, organization]);
-	const { repositoryData } = useGitHubRepository(repository, repositoryId);
+	const { repositoryData } = useGitHubRepository(gitHubRepositoryRepository, repositoryId);
 
 	if (!repositoryData) {
 		return <></>;
@@ -38,7 +48,6 @@ export function GitHubRepositoryDetail({ repository }: { repository: GitHubRepos
 						<th>Watchers</th>
 						<th>Forks</th>
 						<th>Issues</th>
-						<th>Pull Requests</th>
 					</tr>
 				</thead>
 
@@ -48,7 +57,6 @@ export function GitHubRepositoryDetail({ repository }: { repository: GitHubRepos
 						<td>{repositoryData.watchers}</td>
 						<td>{repositoryData.forks}</td>
 						<td>{repositoryData.issues}</td>
-						<td>{repositoryData.pullRequests}</td>
 					</tr>
 				</tbody>
 			</table>
@@ -90,6 +98,15 @@ export function GitHubRepositoryDetail({ repository }: { repository: GitHubRepos
 			) : (
 				<p>There are no workflow runs</p>
 			)}
+
+			<section ref={ref}>
+				{isInViewport && (
+					<PullRequests
+						repository={gitHubRepositoryPullRequestRepository}
+						repositoryId={repositoryId}
+					/>
+				)}
+			</section>
 		</section>
 	);
 }
