@@ -5,4 +5,3 @@ export * from "./dashboard/GitHubRepositoryWidgetSkeleton";
 export * from "./ErrorBoundary";
 export * from "./layout/Layout";
 export * from "./Loader/Loader";
-export { default as TopBarProgressByLocation } from "./TopBarProgressByLocation";

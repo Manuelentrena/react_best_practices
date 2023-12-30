@@ -1,23 +1,16 @@
 import { Link, Outlet } from "react-router-dom";
-import TopBarProgress from "react-topbar-progress-indicator";
 
-import { ErrorBoundary, TopBarProgressByLocation } from "../../components";
+import { ErrorBoundary } from "../../components";
+import { TopbarProgresProvider } from "../providers/TopbarProgresProvider";
 import Brand from "./brand.svg";
 import styles from "./Layout.module.scss";
 
-const title = "DevDash";
-TopBarProgress.config({
-	barColors: {
-		"0": "#fff",
-		"1.0": "#3cff64",
-	},
-	shadowBlur: 5,
-});
-
 export function Layout() {
+	const title = "DevDash";
+
 	return (
 		<>
-			<TopBarProgressByLocation />
+			<TopbarProgresProvider />
 			<header className={styles.header}>
 				<section className={styles.header__container}>
 					<a href="https://codely.com">
