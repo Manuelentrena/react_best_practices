@@ -1,13 +1,13 @@
 import { useMemo } from "react";
 import { useParams } from "react-router-dom";
 
+import Lock from "../../assets/svgs/lock.svg";
+import Unlock from "../../assets/svgs/unlock.svg";
 import { GitHubRepositoryPullRequestRepository } from "../../domain/GitHubRepositoryPullRequestRepository";
 import { GitHubRepositoryRepository } from "../../domain/GitHubRepositoryRepository";
 import { useGitHubRepository } from "../../hooks/useGithubRepository";
 import { useInViewport } from "../../hooks/useInViewport";
 import { PullRequests } from "../pullRequest/PullRequests";
-import Lock from "./assets/lock.svg";
-import Unlock from "./assets/unlock.svg";
 import styles from "./GitHubRepositoryDetail.module.scss";
 
 export function GitHubRepositoryDetail({

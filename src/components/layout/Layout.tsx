@@ -1,8 +1,8 @@
 import { Link, Outlet } from "react-router-dom";
 
+import Brand from "../../assets/svgs/brand.svg";
 import { ErrorBoundary } from "../../components";
 import { TopbarProgresProvider } from "../providers/TopbarProgresProvider";
-import Brand from "./brand.svg";
 import styles from "./Layout.module.scss";
 
 export function Layout() {
