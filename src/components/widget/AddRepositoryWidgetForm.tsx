@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import Add from "../../assets/svgs/add.svg";
 import { RepositoryWidgetRepository } from "../../domain/RepositoryWidgetRepository";
+import { validateURL } from "../../helpers/validateURL";
 import { useAddRepositoryWidget } from "../../hooks/useAddRepositoryWidget";
 import styles from "./AddRepositoryWidgetForm.module.scss";
 
@@ -24,6 +25,11 @@ export function AddRepositoryWidgetForm({
 		try {
 			ev.preventDefault();
 			const { id, repositoryUrl } = ev.target.elements;
+			if (!validateURL(repositoryUrl.value)) {
+				setHasAlreadyExistsError(true);
+
+				return false;
+			}
 			const msgError = await save({ id: id.value, repositoryUrl: repositoryUrl.value });
 			setHasAlreadyExistsError(!!msgError);
 			setIsFormActive(false);
@@ -53,7 +59,7 @@ export function AddRepositoryWidgetForm({
 						</div>
 
 						{hasAlreadyExistsError && (
-							<p className={styles.error} role="alert" aria-describedby="duplicated-error">
+							<p role="alert" aria-describedby="duplicated-error">
 								<span id="duplicated-error">Repositorio duplicado</span>
 							</p>
 						)}
