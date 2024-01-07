@@ -31,8 +31,24 @@ export function RepositoryWidgetContextProvider({
 				setRepositoryWidgets(repositoryWidgets);
 			})
 			.catch((error) => {
-				console.error("Error al leer widgets:", error);
+				console.error("Error al cargar widgets:", error);
 			});
+	}, [repository]);
+
+	useEffect(() => {
+		const reloadRepositoryWidgets = () => {
+			repository
+				.search()
+				.then(setRepositoryWidgets)
+				.catch((error) => {
+					console.error("Error al actualizar widgets:", error);
+				});
+		};
+		document.addEventListener("repositoryWidgetAdded", reloadRepositoryWidgets);
+
+		return () => {
+			document.removeEventListener("repositoryWidgetAdded", reloadRepositoryWidgets);
+		};
 	}, [repository]);
 
 	return (

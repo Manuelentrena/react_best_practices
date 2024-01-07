@@ -16,6 +16,11 @@ export class LocalStorageRepositoryWidgetRepository implements RepositoryWidgetR
 
 	// eslint-disable-next-line unused-imports/no-unused-vars
 	async save(widget: RepositoryWidget): Promise<void> {
-		await Promise.resolve();
+		const currentRepositoryWidget = await this.search();
+
+		localStorage.setItem(
+			this.localStorageKey,
+			JSON.stringify(currentRepositoryWidget.concat(widget))
+		);
 	}
 }
