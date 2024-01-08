@@ -1,4 +1,4 @@
-import { act, render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { mock } from "jest-mock-extended";
 
@@ -16,14 +16,17 @@ describe("AddWidgetForm", () => {
 			name: new RegExp("Añadir repositorio", "i"),
 		});
 
-		act(() => {
-			userEvent.click(button);
+		userEvent.click(button);
+
+		await waitFor(() => {
+			expect(screen.getByLabelText(/Url del repositorio/i)).toBeInTheDocument();
 		});
 
 		const url = screen.getByLabelText(/Url del repositorio/i);
 
 		expect(url).toBeInTheDocument();
 	});
+
 	it("save new widget when form is submitted", async () => {
 		mockRepository.search.mockResolvedValue([]);
 
@@ -38,8 +41,13 @@ describe("AddWidgetForm", () => {
 			name: new RegExp("Añadir repositorio", "i"),
 		});
 
-		act(() => {
-			userEvent.click(button);
+		userEvent.click(button);
+
+		await waitFor(() => {
+			expect(screen.getByLabelText(/Id/i)).toBeInTheDocument();
+		});
+		await waitFor(() => {
+			expect(screen.getByLabelText(/Url del repositorio/i)).toBeInTheDocument();
 		});
 
 		const id = screen.getByLabelText(/Id/i);
@@ -60,6 +68,7 @@ describe("AddWidgetForm", () => {
 
 		expect(addAnotherRepositoryFormButton).toBeInTheDocument();
 		expect(mockRepository.save).toHaveBeenCalledWith(newWidget);
+
 		mockRepository.save.mockReset();
 	});
 
@@ -83,8 +92,13 @@ describe("AddWidgetForm", () => {
 			name: new RegExp("Añadir repositorio", "i"),
 		});
 
-		act(() => {
-			userEvent.click(button);
+		userEvent.click(button);
+
+		await waitFor(() => {
+			expect(screen.getByLabelText(/Id/i)).toBeInTheDocument();
+		});
+		await waitFor(() => {
+			expect(screen.getByLabelText(/Url del repositorio/i)).toBeInTheDocument();
 		});
 
 		const id = screen.getByLabelText(/Id/i);
@@ -100,7 +114,7 @@ describe("AddWidgetForm", () => {
 		userEvent.click(submitButton);
 
 		const errorMessage = await screen.findByRole("alert", {
-			description: /Repositorio duplicado/i,
+			description: /URL duplicada/i,
 		});
 
 		expect(errorMessage).toBeInTheDocument();
