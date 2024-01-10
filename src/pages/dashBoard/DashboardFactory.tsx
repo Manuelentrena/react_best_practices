@@ -1,10 +1,15 @@
 import { Dashboard } from "../../components";
 import { useRepositoryWidgetContext } from "../../components/providers/RepositoryWidgetContextProvider";
-import { config } from "../../devdash_config";
+import { GitHubAccessTokenSearcher } from "../../infrastructure/GithubAccessTokenSearcher";
 import { GitHubApiGitHubRepositoryRepository } from "../../infrastructure/GitHubApiGitHubRepositoryRepository";
+import { LocalStorageGitHubAccessTokenRepository } from "../../infrastructure/LocalStorageGithubAccessTokenRepository";
 import { LocalStorageRepositoryWidgetRepository } from "../../infrastructure/LocalStorageWidgetRepository";
 
-const repository = new GitHubApiGitHubRepositoryRepository(config.github_access_token);
+const ghAccessTokenRepository = new LocalStorageGitHubAccessTokenRepository();
+const ghAccessTokenSearcher = new GitHubAccessTokenSearcher(ghAccessTokenRepository);
+const gitHubRepositoryRepository = new GitHubApiGitHubRepositoryRepository(
+	ghAccessTokenSearcher.search()
+);
 const repositoryWidgetRepository = new LocalStorageRepositoryWidgetRepository();
 
 export function DashboardFactory() {
@@ -12,7 +17,7 @@ export function DashboardFactory() {
 
 	return (
 		<Dashboard
-			repository={repository}
+			gitHubRepositoryRepository={gitHubRepositoryRepository}
 			repositoryWidgetRepository={repositoryWidgetRepository}
 			repositoryWidgets={repositoryWidgets}
 		/>

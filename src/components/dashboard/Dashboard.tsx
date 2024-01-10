@@ -10,11 +10,11 @@ import { GitHubRepositoryWidget } from "./GitHubRepositoryWidget";
 import { GitHubRepositorysWidgetSkeleton } from "./GitHubRepositoryWidgetSkeleton";
 
 const Dashboard = ({
-	repository,
+	gitHubRepositoryRepository,
 	repositoryWidgetRepository,
 	repositoryWidgets,
 }: {
-	repository: GitHubRepositoryRepository;
+	gitHubRepositoryRepository: GitHubRepositoryRepository;
 	repositoryWidgetRepository: RepositoryWidgetRepository;
 	repositoryWidgets: RepositoryWidget[];
 }) => {
@@ -22,7 +22,10 @@ const Dashboard = ({
 		return repositoryWidgets.map((widget) => widget.repositoryUrl);
 	}, [repositoryWidgets]);
 
-	const { repositoryData, isLoading } = useGitHubRepositories(repository, gitHubRepositoryUrls);
+	const { repositoryData, isLoading } = useGitHubRepositories(
+		gitHubRepositoryRepository,
+		gitHubRepositoryUrls
+	);
 
 	return (
 		<>
