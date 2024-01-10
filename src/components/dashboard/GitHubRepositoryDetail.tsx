@@ -62,7 +62,7 @@ export function GitHubRepositoryDetail({
 			</table>
 
 			<h3>Workflow runs status</h3>
-			{repositoryData.workflowRunsStatus.length > 0 ? (
+			{repositoryData.workflowRunsStatus && repositoryData.workflowRunsStatus.length > 0 ? (
 				<>
 					<p>
 						⏱️Last workflow run:{" "}
