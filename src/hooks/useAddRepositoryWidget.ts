@@ -1,4 +1,5 @@
 /* import { RepositoryAlreadyExistsError } from "../domain/RepositoryAlreadyExistsError"; */
+import { DomainEvents } from "../domain/DomainEvents";
 import { RepositoryWidget } from "../domain/RepositoryWidget";
 import { RepositoryWidgetRepository } from "../domain/RepositoryWidgetRepository";
 
@@ -13,7 +14,7 @@ export function useAddRepositoryWidget(repository: RepositoryWidgetRepository): 
 		}
 
 		await repository.save(widget);
-		document.dispatchEvent(new CustomEvent("repositoryWidgetAdded"));
+		document.dispatchEvent(new CustomEvent(DomainEvents.repositoryWidgetAdded));
 	}
 
 	return { save };
